@@ -14,3 +14,9 @@ rows = [(html.unescape(d), html.unescape(r), n, f'https://www.sec.gov{u}')
         for d,r,u,n in pattern.findall(txt)]
 pd.DataFrame(rows, columns=["release_date","respondents","release_no","url"])\
   .to_csv("data/sec_insider_cases.csv", index=False)
+
+
+from transformers import pipeline  
+
+ner = pipeline("ner", model="dslim/bert-base-NER")  
+sec_entities = ner(sec_cases["text"].to_string())
