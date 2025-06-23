@@ -1,0 +1,1 @@
+web: gunicorn quantviz_api:app
