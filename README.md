@@ -1,5 +1,5 @@
 ## 🚀 QuantViz: AI-Powered Financial Crime Detection  
-![Demo](https://www.loom.com/share/e642c193351a419bad61d2f8113d3831?sid=5cf4aed5-a0cb-4910-8642-97a96003cbee)  
+![Demo] (https://www.loom.com/share/e642c193351a419bad61d2f8113d3831?sid=5cf4aed5-a0cb-4910-8642-97a96003cbee)  
 
 ### **Why This Matters**  
 - $2T laundered annually (UN)  
