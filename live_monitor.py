@@ -2,7 +2,7 @@ import asyncio
 import websockets
 import json
 from alpaca_trade_api.stream import Stream
-import scipy
+import asyncio
 
 YOUR_API_KEY = "PK0MWZXKKUWPYWB7RBZS"
 YOUR_SECRET_KEY = "rkdiBVaTyUxGmrsi7fZaz6zM1uZsSwKX8bUMOz3e"
@@ -29,6 +29,12 @@ async def connect():
         
         while True:
             msg = await ws.recv()
-            print("Received:", msg)  
+            print("Received:", msg) 
+            
+async def handle_trade(trade):
+    print("Received:", trade)
+    # Add this line to broadcast prices:
+    await websockets.send(str(trade['p']))  # Send price to HTML
 
 asyncio.run(connect())
+

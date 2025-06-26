@@ -91,3 +91,14 @@ if st.button("Run Analysis"):
         # Simulate alerts
         for i in range(5):
             alert_placeholder.warning(f"🚨 Suspicious transaction #{i+1} detected!")
+
+def generate_sar_report(suspicious_transactions):
+    """Auto-fills SEC Form SAR with AI findings"""
+    from fpdf import FPDF  # pip install fpdf2
+    pdf = FPDF()
+    pdf.add_page()
+    pdf.set_font("Arial", size=12)
+    pdf.cell(200, 10, txt="Suspicious Activity Report", ln=1, align='C')
+    pdf.multi_cell(0, 10, f"AI detected {len(suspicious_transactions)} high-risk transactions:")
+    # Add transaction details...
+    pdf.output("SAR_Report.pdf")

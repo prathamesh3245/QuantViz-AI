@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <h2 style="font-family: Arial;">Live BTC/USD Price</h2>
+  <div id="chart" style="width:800px;height:500px;"></div>
+  
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script>
+    const initialData = [{
+      y: Array(50).fill(0).map((_,i) => 30000 + Math.sin(i/2)*100 + Math.random()*50),
+      line: {color: '#00FFAA'},
+      name: 'BTC Price'
+    }];
+    
+    const layout = {
+      plot_bgcolor: '#1e1e1e',
+      paper_bgcolor: '#1e1e1e',
+      font: {color: 'white'},
+      yaxis: {gridcolor: '#444'},
+      xaxis: {showgrid: false}
+    };
+    
+    Plotly.newPlot('chart', initialData, layout);
+    
+    // 2. Animate fake data until real connection
+    let fakeUpdate = setInterval(() => {
+      Plotly.extendTraces('chart', {
+        y: [[30000 + Math.sin(Date.now()/1000)*100 + Math.random()*50]]
+      }, [0], 50); // Keep last 50 points
+    }, 500);
+    
+    // 3. Connect to real data
+    const ws = new WebSocket('ws://localhost:8000');
+    
+    ws.onopen = () => {
+      clearInterval(fakeUpdate); // Stop fake data
+      console.log("Connected to live data");
+    };
+    
+    ws.onmessage = (event) => {
+      const price = parseFloat(event.data);
+      Plotly.extendTraces('chart', {
+        y: [[price]]
+      }, [0], 100); // Keep last 100 real prices
+    };
+    
+    ws.onerror = (error) => {
+      console.log("Waiting for connection...");
+    };
+  </script>
+  
+  <style>
+    body {
+      background-color: #121212;
+      color: white;
+      padding: 20px;
+      font-family: Arial;
+    }
+  </style>
+</body>
+</html>
