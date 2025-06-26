@@ -10,26 +10,29 @@ URL = "wss://stream.data.alpaca.markets/v1beta3/crypto/us"
 
 
 async def connect():
-    async with websockets.connect(URL) as ws:
-
+    try:
+        async with websockets.connect(URL) as ws:
 
         # Authenticate
-        await ws.send(json.dumps({
-            "action": "auth",
-            "key": YOUR_API_KEY,
-            "secret": YOUR_SECRET_KEY
-        }))
-        print("Auth response:", await ws.recv())  
+            await ws.send(json.dumps({
+                "action": "auth",
+                "key": YOUR_API_KEY,
+                "secret": YOUR_SECRET_KEY
+            }))
+            print("Auth response:", await ws.recv())  
+            
+            # Subscribe to trades
+            await ws.send(json.dumps({
+                "action": "subscribe",
+                "trades": ["BTC/USD"] 
+            }))
+            
+            while True:
+                msg = await ws.recv()
+                print("Received:", msg) 
+    except websockets.ConnectionClosedError as e:
+        print("Connection closed unexpectedly:", e)
         
-        # Subscribe to trades
-        await ws.send(json.dumps({
-            "action": "subscribe",
-            "trades": ["BTC/USD"] 
-        }))
-        
-        while True:
-            msg = await ws.recv()
-            print("Received:", msg) 
             
 async def handle_trade(trade):
     print("Received:", trade)
