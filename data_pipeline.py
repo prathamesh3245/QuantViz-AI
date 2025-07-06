@@ -12,7 +12,7 @@ txt = requests.get("https://www.sec.gov/litigation/litreleases.shtml", headers={
 pattern = re.compile(r'(<time[^>]+>([^<]+)</time>).*?href="(/enforcement-litigation/litigation-release[^"]+)".*?>(LR‑\d+)', re.S)
 rows = [(html.unescape(d), html.unescape(r), n, f'https://www.sec.gov{u}')
         for d,r,u,n in pattern.findall(txt)]
-pd.DataFrame(rows, columns=["release_date","respondents","release_no","url"])\
+sec_cases = pd.DataFrame(rows, columns=["release_date","respondents","release_no","url"])\
   .to_csv("data/sec_insider_cases.csv", index=False)
 
 
