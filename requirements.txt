@@ -7,3 +7,11 @@ matplotlib
 seaborn
 sklearn
 joblib
+yfinance
+requests
+transformers
+torch-geometric
+scikit-learn
+fpdf
+websockets
+alpaca-trade-api
