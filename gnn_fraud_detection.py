@@ -18,7 +18,7 @@ from torch_geometric.datasets import EllipticBitcoinDataset
 # In[3]:
 
 
-dataset = EllipticBitcoinDataset(root='/data')
+dataset = EllipticBitcoinDataset(root='data')
 data = dataset[0]
 # transactions = pd.read_csv("elliptic_txs_classes.csv")
 # edges = pd.read_csv("elliptic_txs_edgelist.csv")
@@ -31,7 +31,7 @@ data = dataset[0]
 # In[4]:
 
 
-elliptic = EllipticBitcoinDataset(root='/data')._data
+elliptic = EllipticBitcoinDataset(root='data')._data
 print(elliptic)
 # fraud_dict = dict(zip(transactions['txId'], transactions['class']))
 

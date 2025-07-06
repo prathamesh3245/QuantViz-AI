@@ -16,3 +16,4 @@ websockets
 alpaca-trade-api
 gunicorn
 flask-cors
+six
