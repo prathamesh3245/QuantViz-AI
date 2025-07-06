@@ -5,5 +5,8 @@ numpy
 pandas
 matplotlib
 seaborn
-sklearn
 joblib
+scikit-learn
+joblib
+gunicorn
+flask-cors
