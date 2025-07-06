@@ -3,3 +3,7 @@ torch==2.5.1
 python-dotenv==1.0.0
 numpy
 pandas
+matplotlib
+seaborn
+sklearn
+joblib
